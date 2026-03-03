@@ -11,6 +11,7 @@ import { TestEmailConnectionSchema } from "@/features/email/email.schema";
 import * as EmailData from "@/features/email/data/email.data";
 import { verifyUnsubscribeToken } from "@/features/email/email.utils";
 import { serverEnv } from "@/lib/env/server.env";
+import { err, ok } from "@/lib/error";
 
 export const testEmailConnectionFn = createServerFn({
   method: "POST",
@@ -40,11 +41,11 @@ export const unsubscribeByTokenFn = createServerFn({
     );
 
     if (!isValid) {
-      throw new Error("Invalid or expired unsubscribe link");
+      return err({ reason: "INVALID_OR_EXPIRED_TOKEN" });
     }
 
     await EmailData.unsubscribe(context.db, data.userId, data.type);
-    return { success: true };
+    return ok({ success: true });
   });
 
 export const getReplyNotificationStatusFn = createServerFn({
