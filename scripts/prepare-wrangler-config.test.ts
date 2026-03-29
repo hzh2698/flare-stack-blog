@@ -27,9 +27,7 @@ describe("prepare-wrangler-config", () => {
   });
 
   it("strips port numbers from bare hostnames", () => {
-    expect(normalizeHostname("blog.example.com:8080")).toBe(
-      "blog.example.com",
-    );
+    expect(normalizeHostname("blog.example.com:8080")).toBe("blog.example.com");
     expect(normalizeHostname("blog.example.com:8080/")).toBe(
       "blog.example.com",
     );

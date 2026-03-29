@@ -54,7 +54,10 @@ export function buildRoutesBlock(
 ): string {
   const route =
     mode === "routes"
-      ? { pattern: `${hostname}/*`, zone_name: zoneNameOverride?.trim() || inferZoneName(hostname) }
+      ? {
+          pattern: `${hostname}/*`,
+          zone_name: zoneNameOverride?.trim() || inferZoneName(hostname),
+        }
       : { pattern: hostname, custom_domain: true };
 
   const inner = JSON.stringify([route], null, 2).replace(/^/gm, "  ").trim();
@@ -99,9 +102,7 @@ export function prepareWranglerConfigContent({
   );
 }
 
-export function prepareWranglerConfig(
-  env: EnvMap,
-): "custom_domain" | "routes" {
+export function prepareWranglerConfig(env: EnvMap): "custom_domain" | "routes" {
   const domain = normalizeHostname(requireEnv(env, "DOMAIN"));
   const mode = resolveDeployDomainMode(env);
   const template = readFileSync(examplePath, "utf8");
