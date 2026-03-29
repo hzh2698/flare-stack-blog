@@ -1107,9 +1107,7 @@ describe("Comments Integration", () => {
       const root = unwrap(
         await CommentService.createComment(userContext, {
           postId,
-          content: createCommentContent(
-            "我觉得文章对误判问题分析得还不够细。",
-          ),
+          content: createCommentContent("我觉得文章对误判问题分析得还不够细。"),
         }),
       );
 

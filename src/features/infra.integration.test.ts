@@ -21,7 +21,9 @@ describe("Infra Integration", () => {
         // Pre-populate cache
         await context.env.KV.put(key, JSON.stringify(cachedData));
 
-        const fetcher = vi.fn().mockResolvedValue({ name: "fresh", value: 999 });
+        const fetcher = vi
+          .fn()
+          .mockResolvedValue({ name: "fresh", value: 999 });
 
         const result = await CacheService.get(context, key, schema, fetcher);
 
@@ -237,7 +239,9 @@ describe("Infra Integration", () => {
         await CacheService.deleteKey(context, ...keys);
 
         // Verify all keys are deleted
-        const results = await Promise.all(keys.map((k) => context.env.KV.get(k)));
+        const results = await Promise.all(
+          keys.map((k) => context.env.KV.get(k)),
+        );
         expect(results).toEqual([null, null, null]);
       });
 
@@ -258,7 +262,9 @@ describe("Infra Integration", () => {
         const context = createTestContext();
         const key = "non-existent-delete-key";
 
-        await expect(CacheService.deleteKey(context, key)).resolves.not.toThrow();
+        await expect(
+          CacheService.deleteKey(context, key),
+        ).resolves.not.toThrow();
       });
     });
 

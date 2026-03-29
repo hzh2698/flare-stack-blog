@@ -175,9 +175,7 @@ describe("Tags & Search Integration", () => {
 
     describe("Admin Operations", () => {
       it("should return TAG_NAME_ALREADY_EXISTS for duplicate tag", async () => {
-        unwrap(
-          await TagService.createTag(adminContext, { name: "dup-tag" }),
-        );
+        unwrap(await TagService.createTag(adminContext, { name: "dup-tag" }));
         const result = await TagService.createTag(adminContext, {
           name: "dup-tag",
         });
